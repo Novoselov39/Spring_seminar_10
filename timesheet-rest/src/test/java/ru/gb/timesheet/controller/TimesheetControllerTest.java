@@ -32,6 +32,8 @@ class TimesheetControllerTest {
 
     @Autowired
     TimesheetRepository timesheetRepository;
+    @Autowired
+    ProjectRepository projectRepository;
 
 
     @LocalServerPort
@@ -99,11 +101,15 @@ class TimesheetControllerTest {
     @Test
     void testCreate() {
 
+
+        Project project = new Project();
+        project.setName("NewName");
+        Project projectSave = projectRepository.save(project);
+
         Timesheet toCreate = new Timesheet();
         toCreate.setId(1L);
         toCreate.setMinutes(3);
-        toCreate.setProjectId(4L);
-
+        toCreate.setProjectId(projectSave.getId());
 
 
         ResponseEntity<Timesheet> response = restClient.post()
@@ -125,7 +131,7 @@ class TimesheetControllerTest {
         Timesheet toDelete = new Timesheet();
         toDelete.setCreatedAt(LocalDate.now());
         toDelete.setMinutes(2);
-        toDelete.setProjectId(3L);
+        toDelete.setProjectId(1L);
         timesheetRepository.save(toDelete);
 
         ResponseEntity<Void> response = restClient.delete()

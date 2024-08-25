@@ -62,12 +62,12 @@ public class TimesheetController {
 
   @PostMapping // создание нового ресурса
   public ResponseEntity<Timesheet> create(@RequestBody Timesheet timesheet) {
-//    final Timesheet created = service.create(timesheet);
-//
-//    // 201 Created
-//    return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    final Timesheet created = service.create(timesheet);
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(service.create(timesheet));
+    // 201 Created
+    return ResponseEntity.status(HttpStatus.CREATED).body(created);
+
+//    return ResponseEntity.status(HttpStatus.CREATED).body(service.create(timesheet));
   }
 
 
